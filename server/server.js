@@ -190,9 +190,12 @@ const SECRET_KEY = process.env.SECRET_KEY || "my_super_secret_key";
 const expiresIn = "1h";
 
 // Настройки CORS для продакшена
+// const corsOptions = {
+//   origin: process.env.CLIENT_URL || "http://localhost:5173",
+//   credentials: true,
+// };
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
-  credentials: true,
+  origin: "*", // Разрешить всем
 };
 
 server.use(cors(corsOptions));
