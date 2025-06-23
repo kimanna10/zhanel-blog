@@ -246,7 +246,7 @@ export default function MyProfile() {
           return;
         }
 
-        const response = await fetch("http://localhost:3000/auth/me", {
+        const response = await fetch("https://zhanel-blog.onrender.com/api/auth/me", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
