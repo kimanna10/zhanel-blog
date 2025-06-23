@@ -1,0 +1,31 @@
+// Update user
+export async function updateUser(id, user) {
+    try {
+        const res = await fetch(`${BASE_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user),
+        });
+        if (!res.ok) throw new Error('Error during update');
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error.message);
+        return null;
+    }
+}
+
+// Delete user
+export async function deleteUser(id) {
+    try {
+        const res = await fetch(`${BASE_URL}/${id}`, {
+            method: 'DELETE',
+        });
+        if (!res.ok) throw new Error('Error during deletion');
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error.message);
+        return null;
+    }
+}

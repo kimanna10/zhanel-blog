@@ -1,0 +1,145 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "firstName": "Emilia",
+      "lastName": "Johnson",
+      "age": 28,
+      "email": "emily.johnson@x.dummyjson.com",
+      "phone": "+81 965-431-3024",
+      "username": "emilys",
+      "image": "https://dummyjson.com/icon/emilys/128",
+      "address": {
+        "city": "Phoenix",
+        "state": "Mississippi"
+      }
+    },
+    {
+      "id": "2",
+      "firstName": "Michael",
+      "lastName": "Williams",
+      "age": 35,
+      "email": "michael.williams@x.dummyjson.com",
+      "phone": "+49 258-627-6644",
+      "username": "michaelw",
+      "image": "https://dummyjson.com/icon/michaelw/128",
+      "address": {
+        "city": "Houston",
+        "state": "Alabama"
+      }
+    },
+    {
+      "id": "3",
+      "firstName": "Sophia",
+      "lastName": "Brown",
+      "age": 42,
+      "email": "sophia.brown@x.dummyjson.com",
+      "phone": "+81 210-652-2785",
+      "username": "sophiab",
+      "image": "https://dummyjson.com/icon/sophiab/128",
+      "address": {
+        "city": "Washington",
+        "state": "Alabama"
+      }
+    },
+    {
+      "id": "4",
+      "firstName": "James",
+      "lastName": "Davis",
+      "age": 45,
+      "email": "james.davis@x.dummyjson.com",
+      "phone": "+49 614-958-9364",
+      "username": "jamesd",
+      "image": "https://dummyjson.com/icon/jamesd/128",
+      "address": {
+        "city": "Seattle",
+        "state": "Pennsylvania"
+      }
+    },
+    {
+      "id": "5",
+      "firstName": "Emma",
+      "lastName": "Miller",
+      "age": 30,
+      "email": "emma.miller@x.dummyjson.com",
+      "phone": "+91 759-776-1614",
+      "username": "emmaj",
+      "image": "https://dummyjson.com/icon/emmaj/128",
+      "address": {
+        "city": "Jacksonville",
+        "state": "Colorado"
+      }
+    },
+    {
+      "id": "6",
+      "firstName": "Olivia",
+      "lastName": "Wilson",
+      "age": 22,
+      "email": "olivia.wilson@x.dummyjson.com",
+      "phone": "+91 607-295-6448",
+      "username": "oliviaw",
+      "image": "https://dummyjson.com/icon/oliviaw/128",
+      "address": {
+        "city": "Fort Worth",
+        "state": "Tennessee"
+      }
+    },
+    [
+  {
+    "id": "7",
+    "firstName": "Alexander",
+    "lastName": "Jones",
+    "age": 38,
+    "email": "alexander.jones@x.dummyjson.com",
+    "phone": "+61 260-824-4986",
+    "username": "alexanderj",
+    "image": "https://dummyjson.com/icon/alexanderj/128",
+    "address": {
+      "city": "Indianapolis",
+      "state": "Delaware"
+    }
+  },
+  {
+    "id": "8",
+    "firstName": "Ava",
+    "lastName": "Taylor",
+    "age": 27,
+    "email": "ava.taylor@x.dummyjson.com",
+    "phone": "+1 458-853-7877",
+    "username": "avat",
+    "image": "https://dummyjson.com/icon/avat/128",
+    "address": {
+      "city": "Fort Worth",
+      "state": "Rhode Island"
+    }
+  },
+  {
+    "id": "9",
+    "firstName": "Ethan",
+    "lastName": "Martinez",
+    "age": 33,
+    "email": "ethan.martinez@x.dummyjson.com",
+    "phone": "+92 933-608-5081",
+    "username": "ethanm",
+    "image": "https://dummyjson.com/icon/ethanm/128",
+    "address": {
+      "city": "San Antonio",
+      "state": "Louisiana"
+    }
+  },
+  {
+    "id": "10",
+    "firstName": "Isabella",
+    "lastName": "Anderson",
+    "age": 31,
+    "email": "isabella.anderson@x.dummyjson.com",
+    "phone": "+49 770-658-4885",
+    "username": "isabellad",
+    "image": "https://dummyjson.com/icon/isabellad/128",
+    "address": {
+      "city": "New York",
+      "state": "Utah"
+    }
+  }
+]
+
