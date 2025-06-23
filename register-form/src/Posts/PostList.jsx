@@ -22,13 +22,12 @@ export default function PostsList() {
     fetchPosts();
   }, []);
 
-
   const handlePost = () => {
     navigate("/create")
   }
 
-  const handleMore = () => {
-    navigate("/post/:id")
+  const handleMore = (postId) => {
+    navigate(`/post/${postId}`)
   }
  
   const getFormattedDate = () => {
@@ -74,24 +73,24 @@ export default function PostsList() {
                 </div>
               </div>
 
-              {/* Author and Date */}
+
               <div className="flex-1 p-6">
                 <div className="flex justify-between text-sm text-gray-500 mb-3">
                   <span>Author: {post.author}</span>
                   <span>Date: {getFormattedDate()}</span>
                 </div>
 
-                {/* Title */}
+
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   {post.title}
                 </h2>
 
-                {/* Description */}
+
                 <p className="text-gray-700 leading-relaxed mb-6">
                   {post.description}
                 </p>
 
-                {/* Rating, comments*/}
+
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-2">
@@ -110,7 +109,7 @@ export default function PostsList() {
                   </div>
 
                   <button
-                  onClick={handleMore}
+                  onClick={() => handleMore(post.id)}
                   className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded text-sm font-medium text-gray-700 transition-colors">
                     View more
                   </button>

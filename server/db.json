@@ -172,90 +172,56 @@
       "title": "Lalala",
       "description": "...",
       "author": "Me",
-      "userId": 1,
-      "createdAt": "2025-06-20T10:30:00Z"
+      "userId": 1
     },
     {
       "id": "2",
       "title": "Hello",
       "description": "...",
       "author": "Me",
-      "userId": 1,
-      "createdAt": "2025-06-20T11:30:00Z"
+      "userId": 1
     },
     {
       "id": "a593",
       "title": "Lalala",
       "description": "...",
       "author": "Me",
-      "userId": 1,
-      "createdAt": "2025-06-20T12:30:00Z"
+      "userId": 1
     },
     {
       "id": "7352",
       "title": "eeee",
       "description": "eeeee",
       "author": "eeee",
-      "userId": 1,
-      "createdAt": "2025-06-21T09:30:00Z"
+      "userId": 1
     },
     {
-      "id": "A2buSNP",
       "title": "Hello",
       "description": "Chuck Chick",
       "author": "Sophia Brown",
       "userId": 3,
-      "createdAt": "2025-06-21T14:30:00Z"
+      "id": "A2buSNP"
     },
     {
-      "id": "-eslD6L",
       "title": "Sigma",
       "description": "Boy",
       "author": "Zhanel User",
       "userId": 11,
-      "createdAt": "2025-06-22T08:30:00Z"
+      "id": "-eslD6L"
     },
     {
-      "id": "xgsB7qv",
       "title": "lol",
       "description": "haha",
       "author": "Zhanel User",
       "userId": 11,
-      "createdAt": "2025-06-22T09:30:00Z"
-    }
-  ],
-  "comments": [
-    {
-      "id": "c1",
-      "postId": "1",
-      "userId": "2",
-      "author": "Michael Williams",
-      "content": "Great post! Thanks for sharing.",
-      "createdAt": "2025-06-20T11:00:00Z"
+      "id": "xgsB7qv"
     },
     {
-      "id": "c2",
-      "postId": "1",
-      "userId": "3",
-      "author": "Sophia Brown",
-      "content": "I totally agree with this!",
-      "createdAt": "2025-06-20T11:15:00Z"
-    },
-    {
-      "id": "c3",
-      "postId": "A2buSNP",
-      "userId": "11",
+      "title": "Such nice weather",
+      "description": "Lalala",
       "author": "Zhanel User",
-      "content": "Interesting perspective on this topic.",
-      "createdAt": "2025-06-21T15:00:00Z"
-    },
-    {
-      "id": "c4",
-      "postId": "-eslD6L",
-      "userId": "1",
-      "author": "Emily Johnson",
-      "content": "Nice work on this post!",
-      "createdAt": "2025-06-22T09:00:00Z"
+      "userId": 11,
+      "id": "wiaP_FQ"
     }
   ]
 }
