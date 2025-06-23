@@ -152,17 +152,16 @@
     {
       "id": "11",
       "firstName": "Zhanel",
-      "lastName": "User",
+      "lastName": "B",
       "age": 25,
       "email": "a@gmail.com",
-      "phone": "+1 000-000-0000",
+      "phone": "+7 (701)-757-70-91",
       "username": "Zhanel",
-      "password": "Apple2016!",
       "gender": "female",
       "image": "https://dummyjson.com/icon/Zhanel/128",
       "address": {
-        "city": "Unknown",
-        "state": "Unknown"
+        "city": "Almaty",
+        "state": "California"
       }
     }
   ],

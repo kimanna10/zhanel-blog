@@ -286,4 +286,4 @@ const PostSing = () => {
   );
 };
 
-export default PostSing
+export default PostSing;
