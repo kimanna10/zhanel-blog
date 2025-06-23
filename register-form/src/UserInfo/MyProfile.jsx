@@ -305,7 +305,7 @@ export default function MyProfile() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/users/${currentUser.id}`,
+        `https://zhanel-blog.onrender.com/api/users/${currentUser.id}`,
         {
           method: "PUT",
           headers: {
