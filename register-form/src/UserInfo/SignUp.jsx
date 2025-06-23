@@ -100,7 +100,7 @@ export default function SignUp() {
 
       try {
         // Fix: Use the correct endpoint /auth/signup
-        const response = await fetch('http://localhost:3000/auth/signup', {
+        const response = await fetch('https://zhanel-blog.onrender.com/api/auth/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
