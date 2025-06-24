@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function PostsList() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const API_URL = "http://localhost:3000/posts";
-  const navigate = useNavigate()
+  const API_URL = "https://zhanel-blog.onrender.com/api/posts";
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchPosts() {
@@ -23,13 +23,13 @@ export default function PostsList() {
   }, []);
 
   const handlePost = () => {
-    navigate("/create")
-  }
+    navigate("/create");
+  };
 
   const handleMore = (postId) => {
-    navigate(`/post/${postId}`)
-  }
- 
+    navigate(`/post/${postId}`);
+  };
+
   const getFormattedDate = () => {
     return new Date()
       .toLocaleDateString("en-GB", {
@@ -52,8 +52,10 @@ export default function PostsList() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <button onClick={handlePost}
-      className="w-max bg-[#E3E3E3] hover:bg-[#D9D9D9] ">
+      <button
+        onClick={handlePost}
+        className="w-max bg-[#E3E3E3] hover:bg-[#D9D9D9] "
+      >
         Create Post
       </button>
       <div className="max-w-4xl mx-auto space-y-6">
@@ -65,14 +67,9 @@ export default function PostsList() {
             <div className="flex">
               <div className="w-80 h-48 flex items-center justify-center flex-shrink-0">
                 <div className="text-white text-4xl font-light tracking-wider">
-                  <img
-                    src='/img.png'
-                    alt= "image"
-                    className="w-73"
-                  />
+                  <img src="/img.png" alt="image" className="w-73" />
                 </div>
               </div>
-
 
               <div className="flex-1 p-6">
                 <div className="flex justify-between text-sm text-gray-500 mb-3">
@@ -80,16 +77,13 @@ export default function PostsList() {
                   <span>Date: {getFormattedDate()}</span>
                 </div>
 
-
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   {post.title}
                 </h2>
 
-
                 <p className="text-gray-700 leading-relaxed mb-6">
                   {post.description}
                 </p>
-
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
@@ -109,8 +103,9 @@ export default function PostsList() {
                   </div>
 
                   <button
-                  onClick={() => handleMore(post.id)}
-                  className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded text-sm font-medium text-gray-700 transition-colors">
+                    onClick={() => handleMore(post.id)}
+                    className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded text-sm font-medium text-gray-700 transition-colors"
+                  >
                     View more
                   </button>
                 </div>

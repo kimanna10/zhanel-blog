@@ -221,11 +221,9 @@
 //   );
 // }
 
-
-
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function UserDetails() {
   const { id } = useParams();
@@ -234,7 +232,7 @@ export default function UserDetails() {
   const [editedUser, setEditedUser] = useState({});
   const navigate = useNavigate();
   // Changed from localhost:5167 to localhost:3000 to match your JSON server
-  const API_URL = "http://localhost:3000/users";
+  const API_URL = "https://zhanel-blog.onrender.com/api/users";
 
   useEffect(() => {
     async function fetchUser() {
@@ -308,7 +306,8 @@ export default function UserDetails() {
               <span className="font-medium">Phone:</span> {user.phone}
             </p>
             <p className="text-sm text-zinc-700">
-              <span className="font-medium">Location:</span> {user.address.city}, {user.address.state}
+              <span className="font-medium">Location:</span> {user.address.city}
+              , {user.address.state}
             </p>
           </div>
 
@@ -346,13 +345,17 @@ export default function UserDetails() {
                   ["address.state", "State"],
                 ].map(([name, label]) => (
                   <div key={name}>
-                    <label className="block text-sm font-medium text-zinc-700">{label}</label>
+                    <label className="block text-sm font-medium text-zinc-700">
+                      {label}
+                    </label>
                     <input
                       type={name === "age" ? "number" : "text"}
                       name={name}
                       value={
                         name.includes(".")
-                          ? editedUser?.[name.split(".")[0]]?.[name.split(".")[1]] || ""
+                          ? editedUser?.[name.split(".")[0]]?.[
+                              name.split(".")[1]
+                            ] || ""
                           : editedUser?.[name] || ""
                       }
                       onChange={handleInputChange}

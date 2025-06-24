@@ -1,6 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, MessageSquare, ThumbsUp, Edit, Trash2 } from 'lucide-react';
+import {
+  ArrowLeft,
+  Calendar,
+  Edit,
+  MessageSquare,
+  ThumbsUp,
+  Trash2,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function PostUser() {
   const { userId } = useParams();
@@ -14,52 +21,55 @@ export default function PostUser() {
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (!token) {
           setError("No authentication token found. Please log in.");
           setLoading(false);
           return;
         }
 
-
-        const currentUserData = localStorage.getItem('user');
+        const currentUserData = localStorage.getItem("user");
         if (currentUserData) {
           const userData = JSON.parse(currentUserData);
           setCurrentUserId(userData.id);
         }
 
-
-        const userResponse = await fetch(`http://localhost:3000/users/${userId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+        const userResponse = await fetch(
+          `https://zhanel-blog.onrender.com/api/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
 
         if (!userResponse.ok) {
-          throw new Error('Failed to fetch user data');
+          throw new Error("Failed to fetch user data");
         }
 
         const userData = await userResponse.json();
         setUser(userData);
 
-
-        const postsResponse = await fetch(`http://localhost:3000/posts/user/${userId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+        const postsResponse = await fetch(
+          `https://zhanel-blog.onrender.com/api/posts/user/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
 
         if (!postsResponse.ok) {
-          throw new Error('Failed to fetch posts');
+          throw new Error("Failed to fetch posts");
         }
 
         const postsData = await postsResponse.json();
         setPosts(postsData.posts || []);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching user posts:', err);
+        console.error("Error fetching user posts:", err);
         setError(err.message || "Failed to load posts");
         setLoading(false);
       }
@@ -71,7 +81,7 @@ export default function PostUser() {
   }, [userId]);
 
   const handleBackClick = () => {
-    navigate(-1); 
+    navigate(-1);
   };
 
   const handleEditPost = (postId) => {
@@ -79,36 +89,39 @@ export default function PostUser() {
   };
 
   const handleDeletePost = async (postId) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) {
+    if (!window.confirm("Are you sure you want to delete this post?")) {
       return;
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `https://zhanel-blog.onrender.com/api/posts/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       if (response.ok) {
-        setPosts(posts.filter(post => post.id !== postId));
+        setPosts(posts.filter((post) => post.id !== postId));
       } else {
-        throw new Error('Failed to delete post');
+        throw new Error("Failed to delete post");
       }
     } catch (err) {
-      console.error('Error deleting post:', err);
-      alert('Failed to delete post. Please try again.');
+      console.error("Error deleting post:", err);
+      alert("Failed to delete post. Please try again.");
     }
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -149,13 +162,15 @@ export default function PostUser() {
             <ArrowLeft className="w-4 h-4" />
             Back
           </button>
-          
+
           <div className="bg-white rounded-lg p-6 shadow-md">
             <h1 className="text-3xl font-bold text-zinc-800 mb-2">
-              {user ? `${user.firstName} ${user.lastName}'s Posts` : 'User Posts'}
+              {user
+                ? `${user.firstName} ${user.lastName}'s Posts`
+                : "User Posts"}
             </h1>
             <p className="text-zinc-600">
-              {posts.length} {posts.length === 1 ? 'post' : 'posts'} found
+              {posts.length} {posts.length === 1 ? "post" : "posts"} found
             </p>
           </div>
         </div>
@@ -167,7 +182,7 @@ export default function PostUser() {
               <p className="text-zinc-600 text-lg">No posts found.</p>
               {currentUserId === parseInt(userId) && (
                 <button
-                  onClick={() => navigate('/posts/create')}
+                  onClick={() => navigate("/posts/create")}
                   className="mt-4 bg-zinc-600 text-white px-6 py-2 rounded hover:bg-zinc-700 transition-colors"
                 >
                   Create Your First Post
@@ -176,7 +191,10 @@ export default function PostUser() {
             </div>
           ) : (
             posts.map((post) => (
-              <div key={post.id} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+              <div
+                key={post.id}
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+              >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
                     <h2 className="text-xl font-semibold text-zinc-800 mb-2">
@@ -201,7 +219,7 @@ export default function PostUser() {
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Action buttons - only show if it's the current user's posts */}
                   {currentUserId === parseInt(userId) && (
                     <div className="flex gap-2 ml-4">
@@ -222,15 +240,15 @@ export default function PostUser() {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="text-zinc-700 mb-4">
                   <p className="line-clamp-3">
-                    {post.content?.length > 200 
-                      ? `${post.content.substring(0, 200)}...` 
+                    {post.content?.length > 200
+                      ? `${post.content.substring(0, 200)}...`
                       : post.content}
                   </p>
                 </div>
-                
+
                 {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
                     {post.tags.map((tag, index) => (
@@ -243,7 +261,7 @@ export default function PostUser() {
                     ))}
                   </div>
                 )}
-                
+
                 <div className="flex justify-between items-center pt-4 border-t border-zinc-200">
                   <div className="text-sm text-zinc-500">
                     {post.updatedAt && post.updatedAt !== post.createdAt && (

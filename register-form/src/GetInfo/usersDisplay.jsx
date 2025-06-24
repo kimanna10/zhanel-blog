@@ -77,16 +77,15 @@
 //   );
 // }
 
-
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function UserDisplay() {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   // Changed from localhost:5167 to localhost:3000 to match your JSON server
-  const API_URL = 'http://localhost:3000/users';
+  const API_URL = "https://zhanel-blog.onrender.com/api/users";
 
   useEffect(() => {
     async function fetchUsers() {

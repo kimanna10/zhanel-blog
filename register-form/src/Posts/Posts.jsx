@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import {useParams, useNavigate} from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Posts() {
+  const { id } = useParams();
+  const [posts, setPosts] = useState([]);
+  const API_URL = "https://zhanel-blog.onrender.com/api/posts";
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const res = await axios.get(API_URL);
+        setPosts(res.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setIsLoading(false);
+      }
+    }
+    fetchPosts();
+  }, []);
 
-    const { id } = useParams();
-    const [posts, setPosts] = useState([]);
-    const API_URL = "http://192.168.10.83:5167/posts";
-    useEffect(() => {
-        async function fetchPosts() {
-          try {
-            const res = await axios.get(API_URL);
-            setPosts(res.data);
-            setIsLoading(false);
-          } catch (error) {
-            console.error("Error fetching posts:", error);
-            setIsLoading(false);
-          }
-        }
-        fetchPosts();
-      }, []);
-    
-    
-    
-    
-    return (
-        <>
-        <div>
-                    {/* Posts List */}
+  return (
+    <>
+      <div>
+        {/* Posts List */}
         <div className="space-y-6">
           {posts.map((post) => (
             <div key={post.id} className="bg-white shadow-lg rounded-xl p-6">
@@ -41,9 +37,7 @@ export default function Posts() {
             </div>
           ))}
         </div>
-        </div>
-        </>
-)
-
+      </div>
+    </>
+  );
 }
-

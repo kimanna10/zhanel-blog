@@ -22,7 +22,7 @@
 //         setIsLoading(false);
 //       } catch (error) {
 //         console.error("Error fetching post:", error.message);
-//         navigate("/posts"); 
+//         navigate("/posts");
 //       }
 //     }
 //     fetchPost();
@@ -140,12 +140,10 @@
 //   );
 // }
 
-
-
 // PostDetails.jsx
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -155,8 +153,8 @@ export default function PostDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [authors, setAuthors] = useState([]);
   const navigate = useNavigate();
-  const API_URL = 'http://localhost:5167/posts';
-  const USERS_URL = 'http://localhost:5167/users'; // URL to fetch users from your JSON server
+  const API_URL = "https://zhanel-blog.onrender.com/api/posts";
+  const USERS_URL = "https://zhanel-blog.onrender.com/api/users"; // URL to fetch users from your JSON server
 
   useEffect(() => {
     async function fetchData() {
@@ -165,15 +163,15 @@ export default function PostDetails() {
         const postRes = await axios.get(`${API_URL}/${id}`);
         setPost(postRes.data);
         setEditedPost(postRes.data);
-        
+
         // Fetch authors data
         const usersRes = await axios.get(USERS_URL);
         setAuthors(usersRes.data);
-        
+
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error.message);
-        navigate("/posts"); 
+        navigate("/posts");
       }
     }
     fetchData();
@@ -181,18 +179,22 @@ export default function PostDetails() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedPost(prev => ({ ...prev, [name]: value }));
+    setEditedPost((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAuthorChange = (e) => {
     const selectedUserId = e.target.value;
-    const selectedAuthor = authors.find(author => author.id === selectedUserId);
-    const authorName = selectedAuthor ? `${selectedAuthor.firstName} ${selectedAuthor.lastName}` : '';
-    
-    setEditedPost(prev => ({
+    const selectedAuthor = authors.find(
+      (author) => author.id === selectedUserId
+    );
+    const authorName = selectedAuthor
+      ? `${selectedAuthor.firstName} ${selectedAuthor.lastName}`
+      : "";
+
+    setEditedPost((prev) => ({
       ...prev,
       author: authorName,
-      userId: selectedUserId
+      userId: selectedUserId,
     }));
   };
 
@@ -248,37 +250,43 @@ export default function PostDetails() {
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Title</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Title
+                  </label>
                   <input
                     type="text"
                     name="title"
-                    value={editedPost.title || ''}
+                    value={editedPost.title || ""}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Description</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
                   <textarea
                     name="description"
-                    value={editedPost.description || ''}
+                    value={editedPost.description || ""}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     required
                   ></textarea>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Author</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Author
+                  </label>
                   <select
                     name="author"
-                    value={editedPost.userId || ''}
+                    value={editedPost.userId || ""}
                     onChange={handleAuthorChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     required
                   >
                     <option value="">Select an author</option>
-                    {authors.map(author => (
+                    {authors.map((author) => (
                       <option key={author.id} value={author.id}>
                         {author.firstName} {author.lastName}
                       </option>

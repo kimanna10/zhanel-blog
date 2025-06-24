@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const PostSing = () => {
   const { id: postId } = useParams();
   const [post, setPost] = useState(null);
   const [postAuthor, setPostAuthor] = useState(null);
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [userRating, setUserRating] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -19,32 +18,37 @@ const PostSing = () => {
         setLoading(true);
         setError(null);
 
-
-        const currentUserResponse = await fetch('http://localhost:3000/users/1');
+        const currentUserResponse = await fetch(
+          "https://zhanel-blog.onrender.com/api/users/1"
+        );
         if (currentUserResponse.ok) {
           const userData = await currentUserResponse.json();
           setCurrentUser(userData);
         }
 
-
-        const postResponse = await fetch(`http://localhost:3000/posts/${postId}`);
+        const postResponse = await fetch(
+          `https://zhanel-blog.onrender.com/api/posts/${postId}`
+        );
         if (!postResponse.ok) {
-          throw new Error('Post not found');
+          throw new Error("Post not found");
         }
         const postData = await postResponse.json();
-        
 
-        const userResponse = await fetch(`http://localhost:3000/users/${postData.userId}`);
+        const userResponse = await fetch(
+          `https://zhanel-blog.onrender.com/api/users/${postData.userId}`
+        );
         const userData = userResponse.ok ? await userResponse.json() : null;
-        
 
-        const commentsResponse = await fetch(`http://localhost:3000/comments?postId=${postId}`);
-        const commentsData = commentsResponse.ok ? await commentsResponse.json() : [];
-        
+        const commentsResponse = await fetch(
+          `https://zhanel-blog.onrender.com/api/comments?postId=${postId}`
+        );
+        const commentsData = commentsResponse.ok
+          ? await commentsResponse.json()
+          : [];
+
         setPost(postData);
         setPostAuthor(userData);
         setComments(commentsData);
-        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -60,47 +64,50 @@ const PostSing = () => {
   const handleAddComment = async () => {
     if (newComment.trim() && userRating > 0) {
       try {
+        const newCommentId = "c" + Date.now();
 
-        const newCommentId = 'c' + Date.now();
-        
         const comment = {
           id: newCommentId,
           postId: postId,
           userId: currentUser?.id || "1",
-          author: currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : "Anonymous User",
+          author: currentUser
+            ? `${currentUser.firstName} ${currentUser.lastName}`
+            : "Anonymous User",
           content: newComment,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         };
-        
-        console.log('Sending comment:', comment);
-        
 
-        const response = await fetch('http://localhost:3000/comments', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(comment)
-        });
-        
+        console.log("Sending comment:", comment);
+
+        const response = await fetch(
+          "https://zhanel-blog.onrender.com/api/comments",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(comment),
+          }
+        );
+
         if (response.ok) {
           const savedComment = await response.json();
-          console.log('Comment saved successfully:', savedComment);
+          console.log("Comment saved successfully:", savedComment);
 
-          setComments(prev => [...prev, savedComment]);
-          setNewComment('');
+          setComments((prev) => [...prev, savedComment]);
+          setNewComment("");
           setUserRating(0);
         } else {
           const errorText = await response.text();
-          console.error('Failed to save comment:', response.status, errorText);
-          alert('Failed to save comment. Please try again.');
+          console.error("Failed to save comment:", response.status, errorText);
+          alert("Failed to save comment. Please try again.");
         }
       } catch (err) {
-        console.error('Failed to add comment:', err);
-        alert('Error adding comment. Please try again.');
+        console.error("Failed to add comment:", err);
+        alert("Error adding comment. Please try again.");
       }
     } else {
-      alert('Please write a comment and select a rating before submitting.');
+      alert("Please write a comment and select a rating before submitting.");
     }
   };
 
@@ -109,13 +116,15 @@ const PostSing = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).replace(/\//g, '-');
+    return new Date(dateString)
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+      .replace(/\//g, "-");
   };
 
   if (loading) {
@@ -160,30 +169,27 @@ const PostSing = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-
       <div className="max-w-4xl mx-auto px-4 pb-8 p-5">
-
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
           <div className="text-sm text-gray-600">
-            <span>Author: {postAuthor ? `${postAuthor.firstName} ${postAuthor.lastName}` : post.author}</span>
+            <span>
+              Author:{" "}
+              {postAuthor
+                ? `${postAuthor.firstName} ${postAuthor.lastName}`
+                : post.author}
+            </span>
             <span className="ml-8">Date: {formatDate(post.createdAt)}</span>
           </div>
         </div>
 
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-
           <div className="bg-gray-600 aspect-video flex items-center justify-center text-white text-6xl font-light rounded">
             image
           </div>
-          
 
           <div className="space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              {post.description}
-            </p>
-            
+            <p className="text-gray-700 leading-relaxed">{post.description}</p>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -192,7 +198,7 @@ const PostSing = () => {
                 </span>
                 <span className="text-sm text-gray-600">Comments</span>
               </div>
-              <button 
+              <button
                 onClick={handleAddComment}
                 disabled={!newComment.trim() || userRating === 0}
                 className="bg-[#717171] text-white px-6 py-2 rounded hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
@@ -203,20 +209,19 @@ const PostSing = () => {
           </div>
         </div>
 
-
         <div className="space-y-4 mb-8">
           {comments.map((comment) => (
             <div key={comment.id} className="flex space-x-4">
-
               <div className="w-12 h-12 bg-gray-600 rounded flex-shrink-0 flex items-center justify-center text-white text-sm">
                 {comment.author.charAt(0).toUpperCase()}
               </div>
-              
 
               <div className="flex-1">
                 <div className="flex items-center space-x-4 mb-1">
                   <span className="font-medium text-sm">{comment.author}</span>
-                  <span className="text-xs text-gray-500">{formatDate(comment.createdAt)}</span>
+                  <span className="text-xs text-gray-500">
+                    {formatDate(comment.createdAt)}
+                  </span>
                 </div>
                 <p className="text-sm text-gray-700 mb-2">{comment.content}</p>
                 <div className="flex items-center justify-between">
@@ -227,8 +232,12 @@ const PostSing = () => {
                     <span className="text-xs text-gray-600">Rating</span>
                   </div>
                   <div className="flex space-x-2">
-                    <button className="text-xs text-gray-600 hover:text-gray-800">Edit</button>
-                    <button className="text-xs text-gray-600 hover:text-gray-800">Delete</button>
+                    <button className="text-xs text-gray-600 hover:text-gray-800">
+                      Edit
+                    </button>
+                    <button className="text-xs text-gray-600 hover:text-gray-800">
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>
@@ -242,7 +251,6 @@ const PostSing = () => {
           )}
         </div>
 
-
         <div className="bg-[#EBEBEB] p-6 rounded">
           <div className="mb-4">
             <textarea
@@ -252,7 +260,6 @@ const PostSing = () => {
               className="w-full p-3 border border-gray-300 rounded resize-none h-24"
             />
           </div>
-          
 
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -261,9 +268,9 @@ const PostSing = () => {
                   key={rating}
                   onClick={() => handleRatingClick(rating)}
                   className={`px-3 py-1 rounded text-sm ${
-                    userRating === rating 
-                      ? 'bg-gray-600 text-white' 
-                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+                    userRating === rating
+                      ? "bg-gray-600 text-white"
+                      : "bg-gray-300 text-gray-700 hover:bg-gray-400"
                   }`}
                 >
                   {rating}.0
@@ -271,8 +278,8 @@ const PostSing = () => {
               ))}
               <span className="text-sm text-gray-600 ml-2">Rating</span>
             </div>
-            
-            <button 
+
+            <button
               onClick={handleAddComment}
               disabled={!newComment.trim() || userRating === 0}
               className="bg-[#717171] text-white px-6 py-2 rounded hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
