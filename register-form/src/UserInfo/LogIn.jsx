@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../themeProvider";
 
 export default function Login() {
@@ -22,28 +22,30 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await fetch('https://zhanel-blog.onrender.com/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://zhanel-blog.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
         navigate("/MyProfile");
       } else {
-        setError(data.message || 'Login failed');
+        setError(data.message || "Login failed");
       }
     } catch (error) {
-      console.error('Login error:', error);
-      setError('Network error. Please try again.');
+      console.error("Login error:", error);
+      setError("Network error. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -60,9 +62,11 @@ export default function Login() {
           theme === "light" ? "bg-white" : "bg-gray-900"
         }`}
       >
-        <h1 className={`text-2xl font-bold text-center mt-12 ${
-          theme === "light" ? "text-gray-900" : "text-white"
-        }`}>
+        <h1
+          className={`text-2xl font-bold text-center mt-12 ${
+            theme === "light" ? "text-gray-900" : "text-white"
+          }`}
+        >
           Login
         </h1>
 
@@ -92,7 +96,9 @@ export default function Login() {
           />
 
           <div className="flex flex-row text-sm gap-20">
-            <p className={theme === "light" ? "text-gray-700" : "text-gray-300"}>
+            <p
+              className={theme === "light" ? "text-gray-700" : "text-gray-300"}
+            >
               Don't have an account?
             </p>
             <Link to="/SignUp" className="text-sky-500">
@@ -104,7 +110,7 @@ export default function Login() {
             type="submit"
             disabled={isLoading}
             className={`w-full font-medium py-3 px-4 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 ${
-              isLoading 
+              isLoading
                 ? "bg-gray-400 cursor-not-allowed text-white"
                 : "bg-zinc-700 hover:bg-gray-700 text-white"
             }`}

@@ -223,8 +223,8 @@
 //   );
 // }
 
-import { useState, useEffect } from "react";
-import { Edit, FileText, MessageSquare, Trash2, LogOut } from "lucide-react";
+import { Edit, FileText, LogOut, MessageSquare, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function MyProfile() {
@@ -246,12 +246,15 @@ export default function MyProfile() {
           return;
         }
 
-        const response = await fetch("https://zhanel-blog.onrender.com/api/auth/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "https://zhanel-blog.onrender.com/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
           if (response.status === 401) {

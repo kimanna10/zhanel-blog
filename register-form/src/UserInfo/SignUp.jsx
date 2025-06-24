@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react";
-import { ThemeContext } from "../themeProvider";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../themeProvider";
 
 export default function SignUp() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -86,11 +86,11 @@ export default function SignUp() {
   const validInput = async () => {
     if (errors.length === 0 && input && password && email) {
       setIsLoading(true);
-      
+
       const gender = document.querySelector(
         'input[name="gender"]:checked'
       )?.value;
-      
+
       const userData = {
         username: input,
         email,
@@ -100,21 +100,24 @@ export default function SignUp() {
 
       try {
         // Fix: Use the correct endpoint /auth/signup
-        const response = await fetch('https://zhanel-blog.onrender.com/api/auth/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        });
+        const response = await fetch(
+          "https://zhanel-blog.onrender.com/auth/signup",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+        );
 
         const data = await response.json();
 
         if (response.ok) {
           // Store token in localStorage for future requests
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+
           alert("You've successfully Signed Up!");
           setInput("");
           setPassword("");
@@ -123,11 +126,11 @@ export default function SignUp() {
           navigate("/login");
         } else {
           // Handle errors from server
-          setErrors([data.message || 'An error occurred during signup']);
+          setErrors([data.message || "An error occurred during signup"]);
         }
       } catch (error) {
-        console.error('Signup error:', error);
-        setErrors(['Network error. Please try again.']);
+        console.error("Signup error:", error);
+        setErrors(["Network error. Please try again."]);
       } finally {
         setIsLoading(false);
       }
@@ -218,7 +221,10 @@ export default function SignUp() {
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500"
               disabled={isLoading}
             />
-            <label htmlFor="passwordVisible" className="ms-2 text-sm font-medium">
+            <label
+              htmlFor="passwordVisible"
+              className="ms-2 text-sm font-medium"
+            >
               Show password
             </label>
           </div>
@@ -226,7 +232,9 @@ export default function SignUp() {
           {/* Gender radio */}
           <div className="flex flex-col justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
-              <span className={theme === "light" ? "text-gray-800" : "text-white"}>
+              <span
+                className={theme === "light" ? "text-gray-800" : "text-white"}
+              >
                 Gender:
               </span>
               <label className="flex items-center">
@@ -265,7 +273,9 @@ export default function SignUp() {
           <button
             type="button"
             onClick={validInput}
-            disabled={errors.length > 0 || !input || !password || !email || isLoading}
+            disabled={
+              errors.length > 0 || !input || !password || !email || isLoading
+            }
             className={`w-full py-2 text-white font-medium rounded ${
               errors.length > 0 || !input || !password || !email || isLoading
                 ? "bg-gray-400 cursor-not-allowed"
